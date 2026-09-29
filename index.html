@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting IMPEMSI 2025 | Ketua, Sekretaris, Bendahara</title>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* SEMUA ROUNDED DIHILANGKAN - GAYA KOTAK RUNCI NG */
+            border-radius: 0 !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f7;
+            background-image: 
+                linear-gradient(rgba(30, 58, 138, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #1e293b;
+        }
+
+        .main-container {
+            max-width: 1300px;
+            width: 100%;
+        }
+
+        /* ================= HEADER ================= */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 1rem;
+            background: #0b2b5c;
+            border: 4px solid #0b2b5c;
+            box-shadow: 8px 8px 0 #60a5fa;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            text-transform: uppercase;
+        }
+
+        .header h1 i {
+            color: #60a5fa;
+            font-size: 2.2rem;
+        }
+
+        .header .sub {
+            font-size: 1rem;
+            color: #cbd5e1;
+            margin-top: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ================= BANNER TERKUNCI ================= */
+        .locked-banner {
+            background: #ecfdf5;
+            border: 4px solid #10b981;
+            border-left: 10px solid #10b981;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: 6px 6px 0 #065f46;
+        }
+
+        .locked-banner i {
+            font-size: 2rem;
+            color: #10b981;
+            flex-shrink: 0;
+        }
+
+        .locked-banner .text h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #065f46;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .locked-banner .text p {
+            font-size: 0.85rem;
+            color: #047857;
+            font-weight: 500;
+        }
+
+        /* ================= STATUS VOTING ================= */
+        .vote-status {
+            background: #ffffff;
+            border: 3px solid #0b2b5c;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            box-shadow: 6px 6px 0 #0b2b5c;
+        }
+
+        .vote-status .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 6px 0;
+        }
+
+        .vote-status .badge i {
+            font-size: 1.1rem;
+        }
+
+        .vote-status .badge.success i {
+            color: #10b981;
+        }
+
+        .vote-status .badge.warning i {
+            color: #f59e0b;
+        }
+
+        .btn-reset {
+            background: #ffffff;
+            border: 3px solid #0b2b5c;
+            padding: 0.6rem 1.4rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #0b2b5c;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background: #0b2b5c;
+            color: #ffffff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #60a5fa;
+        }
+
+        .btn-reset:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        /* ================= GRID VOTING ================= */
+        .voting-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 1000px) {
+            .voting-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .voting-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ================= CARD KATEGORI ================= */
+        .category-card {
+            background: #ffffff;
+            border: 3px solid #0b2b5c;
+            padding: 0;
+            box-shadow: 8px 8px 0 #0b2b5c;
+            transition: transform 0.15s, box-shadow 0.15s;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 12px 12px 0 #0b2b5c;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem 1.2rem;
+            background: #0b2b5c;
+            color: #ffffff;
+            border-bottom: 4px solid #60a5fa;
+        }
+
+        .category-header i {
+            font-size: 1.5rem;
+            color: #60a5fa;
+        }
+
+        .category-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .category-header .count-badge {
+            margin-left: auto;
+            background: #ffffff;
+            color: #0b2b5c;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            border: 2px solid #60a5fa;
+            text-transform: uppercase;
+        }
+
+        /* ================= CANDIDATE LIST ================= */
+        .candidate-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .candidate-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #ffffff;
+            padding: 0.9rem 1rem;
+            border: 3px solid #cbd5e1;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .candidate-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .candidate-item:hover:not(.disabled) {
+            border-color: #0b2b5c;
+            background: #f8fafc;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #0b2b5c;
+        }
+
+        .candidate-item.selected {
+            border-color: #2563eb;
+            background: #dbeafe;
+            box-shadow: 4px 4px 0 #2563eb;
+        }
+
+        .candidate-item.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            filter: grayscale(0.7);
+            cursor: not-allowed;
+        }
+
+        .candidate-avatar {
+            width: 48px;
+            height: 48px;
+            background: #0b2b5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            border: 3px solid #60a5fa;
+            letter-spacing: 0.05em;
+        }
+
+        .candidate-item.selected .candidate-avatar {
+            background: #2563eb;
+            border-color: #0b2b5c;
+        }
+
+        .candidate-info {
+            flex: 1;
+        }
+
+        .candidate-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b1e3a;
+            letter-spacing: 0.02em;
+        }
+
+        .candidate-role {
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+        }
+
+        .vote-check {
+            width: 26px;
+            height: 26px;
+            border: 3px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            flex-shrink: 0;
+            background: #ffffff;
+        }
+
+        .candidate-item.selected .vote-check {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .vote-check i {
+            color: white;
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .candidate-item.selected .vote-check i {
+            opacity: 1;
+        }
+
+        /* ================= TOMBOL SUBMIT ================= */
+        .action-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-submit {
+            background: #0b2b5c;
+            border: 4px solid #0b2b5c;
+            padding: 1.1rem 3.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: 8px 8px 0 #60a5fa;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: #1e40af;
+            transform: translate(-3px, -3px);
+            box-shadow: 11px 11px 0 #60a5fa;
+        }
+
+        .btn-submit:active:not(:disabled) {
+            transform: translate(0, 0);
+            box-shadow: 4px 4px 0 #60a5fa;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(0.5);
+            transform: none;
+            box-shadow: 4px 4px 0 #94a3b8;
+            background: #475569;
+            border-color: #475569;
+        }
+
+        .btn-submit i {
+            font-size: 1.2rem;
+        }
+
+        /* ================= HASIL VOTING DI BAWAH ================= */
+        .hasil-section {
+            margin-top: 3rem;
+            width: 100%;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, max-height 0.6s ease, margin-top 0.4s ease;
+        }
+
+        .hasil-section.show {
+            opacity: 1;
+            max-height: 1500px;
+            margin-top: 3rem;
+        }
+
+        .hasil-card {
+            background: #ffffff;
+            border: 4px solid #0b2b5c;
+            padding: 2.5rem 2rem;
+            box-shadow: 10px 10px 0 #0b2b5c;
+            position: relative;
+        }
+
+        .hasil-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: repeating-linear-gradient(
+                45deg,
+                #0b2b5c,
+                #0b2b5c 10px,
+                #60a5fa 10px,
+                #60a5fa 20px
+            );
+        }
+
+        .hasil-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-top: 1rem;
+        }
+
+        .hasil-header .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: #0b2b5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 4px solid #60a5fa;
+            box-shadow: 6px 6px 0 #60a5fa;
+        }
+
+        .hasil-header .icon-circle i {
+            font-size: 2.5rem;
+            color: #fbbf24;
+        }
+
+        .hasil-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0b1e3a;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hasil-header p {
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .hasil-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 850px) {
+            .hasil-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hasil-item {
+            background: #ffffff;
+            border: 3px solid #0b2b5c;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 6px 6px 0 #0b2b5c;
+            position: relative;
+        }
+
+        .hasil-item:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0 #0b2b5c;
+        }
+
+        .hasil-item .role-icon {
+            width: 60px;
+            height: 60px;
+            background: #0b2b5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 3px solid #60a5fa;
+        }
+
+        .hasil-item .role-icon i {
+            font-size: 1.8rem;
+            color: #60a5fa;
+        }
+
+        .hasil-item .role-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #64748b;
+            margin-bottom: 0.6rem;
+        }
+
+        .hasil-item .winner-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0b2b5c;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .hasil-item .winner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #10b981;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid #065f46;
+        }
+
+        .hasil-item .winner-badge i {
+            font-size: 0.75rem;
+        }
+
+        .hasil-footer {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 3px dashed #0b2b5c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .hasil-footer .lock-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0b2b5c;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .hasil-footer .lock-info i {
+            color: #10b981;
+            font-size: 1rem;
+        }
+
+        .hasil-footer .timestamp {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 600;
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border: 2px solid #cbd5e1;
+        }
+
+        /* ================= MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 43, 92, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            max-width: 550px;
+            width: 100%;
+            padding: 2rem;
+            border: 4px solid #0b2b5c;
+            box-shadow: 12px 12px 0 #60a5fa;
+            transform: scale(0.92);
+            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .modal-header i {
+            font-size: 3.5rem;
+            color: #10b981;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0b1e3a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .modal-header p {
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .result-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 1rem 1.2rem;
+            border: 3px solid #0b2b5c;
+            border-left: 10px solid #2563eb;
+        }
+
+        .result-item .label {
+            font-weight: 700;
+            color: #0b2b5c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+        }
+
+        .result-item .label i {
+            color: #2563eb;
+            width: 20px;
+        }
+
+        .result-item .winner-name {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #ffffff;
+            background: #0b2b5c;
+            padding: 0.4rem 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-close-modal {
+            width: 100%;
+            background: #0b2b5c;
+            border: 3px solid #0b2b5c;
+            padding: 1rem;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            box-shadow: 5px 5px 0 #60a5fa;
+        }
+
+        .btn-close-modal:hover {
+            background: #1e40af;
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0 #60a5fa;
+        }
+
+        /* ================= FOOTER ================= */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #0b2b5c;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 1rem;
+            border-top: 3px solid #0b2b5c;
+        }
+
+        /* ================= TOAST ================= */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150px);
+            background: #0b2b5c;
+            color: white;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            box-shadow: 6px 6px 0 #60a5fa;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+            opacity: 0;
+            max-width: 90vw;
+            border: 3px solid #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .toast.success i {
+            color: #10b981;
+        }
+
+        .toast.warning i {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <!-- Header -->
+    <div class="header">
+        <h1>
+            <i class="fas fa-vote-yea"></i> Pemilihan IMPEMSI 2025
+        </h1>
+        <div class="sub">
+            <i class="fas fa-users"></i> Pilih Ketua, Sekretaris & Bendahara
+        </div>
+    </div>
+
+    <!-- Banner Terkunci -->
+    <div class="locked-banner" id="lockedBanner" style="display: none;">
+        <i class="fas fa-lock"></i>
+        <div class="text">
+            <h4>Voting Sudah Dikirim</h4>
+            <p>Anda hanya dapat mengirim suara satu kali. Pilihan terkunci permanen.</p>
+        </div>
+    </div>
+
+    <!-- Status Voting -->
+    <div class="vote-status">
+        <div class="badge warning" id="statusBadge">
+            <i class="fas fa-circle-exclamation"></i>
+            <span id="statusText">Silakan pilih semua kandidat</span>
+        </div>
+        <button class="btn-reset" id="resetVoteBtn">
+            <i class="fas fa-rotate-left"></i> Reset Pilihan
+        </button>
+    </div>
+
+    <!-- Grid Voting -->
+    <div class="voting-grid">
+        <div class="category-card" data-category="ketua">
+            <div class="category-header">
+                <i class="fas fa-user-tie"></i>
+                <h2>Ketua</h2>
+                <span class="count-badge">4 Calon</span>
+            </div>
+            <div class="candidate-list" id="ketuaList"></div>
+        </div>
+
+        <div class="category-card" data-category="sekretaris">
+            <div class="category-header">
+                <i class="fas fa-pen-fancy"></i>
+                <h2>Sekretaris</h2>
+                <span class="count-badge">4 Calon</span>
+            </div>
+            <div class="candidate-list" id="sekretarisList"></div>
+        </div>
+
+        <div class="category-card" data-category="bendahara">
+            <div class="category-header">
+                <i class="fas fa-coins"></i>
+                <h2>Bendahara</h2>
+                <span class="count-badge">4 Calon</span>
+            </div>
+            <div class="candidate-list" id="bendaharaList"></div>
+        </div>
+    </div>
+
+    <!-- Tombol Submit -->
+    <div class="action-section">
+        <button class="btn-submit" id="submitVoteBtn" disabled>
+            <i class="fas fa-check-circle"></i> Kirim Suara
+        </button>
+    </div>
+
+    <!-- Hasil Voting -->
+    <div class="hasil-section" id="hasilSection">
+        <div class="hasil-card">
+            <div class="hasil-header">
+                <div class="icon-circle">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2>Hasil Voting Anda</h2>
+                <p>Berikut adalah kandidat yang Anda pilih untuk periode IMPEMSI 2025</p>
+            </div>
+
+            <div class="hasil-grid" id="hasilGrid"></div>
+
+            <div class="hasil-footer">
+                <div class="lock-info">
+                    <i class="fas fa-lock"></i>
+                    <span>Suara Anda sudah terkunci dan tidak dapat diubah</span>
+                </div>
+                <div class="timestamp" id="hasilTimestamp"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <i class="fas fa-lock"></i> Satu perangkat satu suara • IMPEMSI 2025
+    </div>
+</div>
+
+<!-- Modal Hasil -->
+<div class="modal-overlay" id="resultModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <i class="fas fa-check-circle"></i>
+            <h3>Voting Berhasil</h3>
+            <p>Terima kasih telah menggunakan hak suara Anda</p>
+        </div>
+        <div class="result-list" id="resultList"></div>
+        <button class="btn-close-modal" id="closeModalBtn">
+            <i class="fas fa-times"></i> Tutup
+        </button>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+    <i class="fas fa-info-circle"></i>
+    <span id="toastMessage">Pesan</span>
+</div>
+
+<script>
+    (function() {
+        // ========== DATA CALON ==========
+        const candidates = {
+            ketua: [
+                { id: 'ketua1', name: 'Erutd', role: 'Calon Ketua' },
+                { id: 'ketua2', name: 'Iqbal', role: 'Calon Ketua' },
+                { id: 'ketua3', name: 'Kabul', role: 'Calon Ketua' },
+                { id: 'ketua4', name: 'Ega', role: 'Calon Ketua' }
+            ],
+            sekretaris: [
+                { id: 'sek1', name: 'Alya', role: 'Calon Sekretaris' },
+                { id: 'sek2', name: 'Bima', role: 'Calon Sekretaris' },
+                { id: 'sek3', name: 'Citra', role: 'Calon Sekretaris' },
+                { id: 'sek4', name: 'Dimas', role: 'Calon Sekretaris' }
+            ],
+            bendahara: [
+                { id: 'ben1', name: 'Nadia', role: 'Calon Bendahara' },
+                { id: 'ben2', name: 'Rizky', role: 'Calon Bendahara' },
+                { id: 'ben3', name: 'Salsa', role: 'Calon Bendahara' },
+                { id: 'ben4', name: 'Taufik', role: 'Calon Bendahara' }
+            ]
+        };
+
+        // ========== STATE ==========
+        let selectedVotes = {
+            ketua: null,
+            sekretaris: null,
+            bendahara: null
+        };
+
+        let hasVoted = false;
+        const STORAGE_KEY = 'impemsi_voting_2025_locked';
+
+        // ========== DOM ELEMENTS ==========
+        const ketuaList = document.getElementById('ketuaList');
+        const sekretarisList = document.getElementById('sekretarisList');
+        const bendaharaList = document.getElementById('bendaharaList');
+        const submitBtn = document.getElementById('submitVoteBtn');
+        const resetBtn = document.getElementById('resetVoteBtn');
+        const statusBadge = document.getElementById('statusBadge');
+        const statusText = document.getElementById('statusText');
+        const modal = document.getElementById('resultModal');
+        const resultList = document.getElementById('resultList');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const hasilSection = document.getElementById('hasilSection');
+        const hasilGrid = document.getElementById('hasilGrid');
+        const hasilTimestamp = document.getElementById('hasilTimestamp');
+        const lockedBanner = document.getElementById('lockedBanner');
+
+        // ========== RENDER ==========
+        function renderCandidates() {
+            renderCategory('ketua', ketuaList);
+            renderCategory('sekretaris', sekretarisList);
+            renderCategory('bendahara', bendaharaList);
+        }
+
+        function renderCategory(category, container) {
+            const list = candidates[category];
+            container.innerHTML = '';
+            list.forEach(candidate => {
+                const item = document.createElement('div');
+                item.className = 'candidate-item';
+                item.dataset.id = candidate.id;
+                item.dataset.category = category;
+                const initials = candidate.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+                item.innerHTML = `
+                    <div class="candidate-avatar">${initials}</div>
+                    <div class="candidate-info">
+                        <div class="candidate-name">${candidate.name}</div>
+                        <div class="candidate-role">${candidate.role}</div>
+                    </div>
+                    <div class="vote-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                `;
+                item.addEventListener('click', () => handleCandidateClick(category, candidate.id));
+                container.appendChild(item);
+            });
+        }
+
+        // ========== HANDLE CLICK ==========
+        function handleCandidateClick(category, candidateId) {
+            if (hasVoted) {
+                showToast('Anda sudah melakukan voting. Pilihan terkunci permanen.', 'warning');
+                return;
+            }
+
+            if (selectedVotes[category] === candidateId) {
+                selectedVotes[category] = null;
+            } else {
+                selectedVotes[category] = candidateId;
+            }
+
+            updateSelectionUI(category);
+            updateSubmitButtonState();
+            updateStatusBadge();
+        }
+
+        function updateSelectionUI(category) {
+            const container = document.querySelector(`.category-card[data-category="${category}"] .candidate-list`);
+            const items = container.querySelectorAll('.candidate-item');
+            const selectedId = selectedVotes[category];
+            items.forEach(item => {
+                if (item.dataset.id === selectedId) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+
+        function updateSubmitButtonState() {
+            const allSelected = selectedVotes.ketua && selectedVotes.sekretaris && selectedVotes.bendahara;
+            submitBtn.disabled = !allSelected || hasVoted;
+        }
+
+        function updateStatusBadge() {
+            if (hasVoted) {
+                statusBadge.className = 'badge success';
+                statusBadge.innerHTML = '<i class="fas fa-lock"></i><span id="statusText">Voting selesai. Pilihan terkunci permanen.</span>';
+                return;
+            }
+            const allSelected = selectedVotes.ketua && selectedVotes.sekretaris && selectedVotes.bendahara;
+            if (allSelected) {
+                statusBadge.className = 'badge success';
+                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span id="statusText">Semua kandidat telah dipilih. Klik "Kirim Suara".</span>';
+            } else {
+                statusBadge.className = 'badge warning';
+                statusBadge.innerHTML = '<i class="fas fa-circle-exclamation"></i><span id="statusText">Silakan pilih semua kandidat (Ketua, Sekretaris, Bendahara)</span>';
+            }
+        }
+
+        // ========== RENDER HASIL ==========
+        function renderHasilSection() {
+            const getWinnerName = (category, id) => {
+                const candidate = candidates[category].find(c => c.id === id);
+                return candidate ? candidate.name : '-';
+            };
+
+            const ketuaName = getWinnerName('ketua', selectedVotes.ketua);
+            const sekretarisName = getWinnerName('sekretaris', selectedVotes.sekretaris);
+            const bendaharaName = getWinnerName('bendahara', selectedVotes.bendahara);
+
+            hasilGrid.innerHTML = `
+                <div class="hasil-item">
+                    <div class="role-icon"><i class="fas fa-user-tie"></i></div>
+                    <div class="role-label">Ketua</div>
+                    <div class="winner-name">${ketuaName}</div>
+                    <div class="winner-badge"><i class="fas fa-check"></i> Terpilih</div>
+                </div>
+                <div class="hasil-item">
+                    <div class="role-icon"><i class="fas fa-pen-fancy"></i></div>
+                    <div class="role-label">Sekretaris</div>
+                    <div class="winner-name">${sekretarisName}</div>
+                    <div class="winner-badge"><i class="fas fa-check"></i> Terpilih</div>
+                </div>
+                <div class="hasil-item">
+                    <div class="role-icon"><i class="fas fa-coins"></i></div>
+                    <div class="role-label">Bendahara</div>
+                    <div class="winner-name">${bendaharaName}</div>
+                    <div class="winner-badge"><i class="fas fa-check"></i> Terpilih</div>
+                </div>
+            `;
+
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            hasilTimestamp.textContent = `Dikirim pada: ${now.toLocaleDateString('id-ID', options)} WIB`;
+
+            hasilSection.classList.add('show');
+        }
+
+        // ========== SUBMIT VOTE ==========
+        function submitVote() {
+            if (hasVoted) {
+                showToast('Anda sudah melakukan voting. Pengiriman kedua tidak diizinkan.', 'warning');
+                return;
+            }
+            if (!selectedVotes.ketua || !selectedVotes.sekretaris || !selectedVotes.bendahara) {
+                showToast('Harap pilih semua kandidat terlebih dahulu.', 'warning');
+                return;
+            }
+
+            const voteData = {
+                ketua: selectedVotes.ketua,
+                sekretaris: selectedVotes.sekretaris,
+                bendahara: selectedVotes.bendahara,
+                timestamp: new Date().toISOString(),
+                locked: true
+            };
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(voteData));
+            } catch (e) {
+                console.warn('Gagal menyimpan ke localStorage', e);
+            }
+
+            hasVoted = true;
+            
+            document.querySelectorAll('.candidate-item').forEach(item => {
+                item.classList.add('disabled');
+            });
+
+            resetBtn.disabled = true;
+            resetBtn.style.opacity = '0.35';
+            resetBtn.style.cursor = 'not-allowed';
+
+            lockedBanner.style.display = 'flex';
+            renderHasilSection();
+
+            setTimeout(() => {
+                hasilSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+
+            showResultModal();
+            updateStatusBadge();
+            updateSubmitButtonState();
+            showToast('Voting berhasil! Suara Anda terkunci permanen.', 'success');
+        }
+
+        // ========== MODAL ==========
+        function showResultModal() {
+            const getWinnerName = (category, id) => {
+                const candidate = candidates[category].find(c => c.id === id);
+                return candidate ? candidate.name : '-';
+            };
+
+            const ketuaName = getWinnerName('ketua', selectedVotes.ketua);
+            const sekretarisName = getWinnerName('sekretaris', selectedVotes.sekretaris);
+            const bendaharaName = getWinnerName('bendahara', selectedVotes.bendahara);
+
+            resultList.innerHTML = `
+                <div class="result-item">
+                    <span class="label"><i class="fas fa-user-tie"></i> Ketua</span>
+                    <span class="winner-name">${ketuaName}</span>
+                </div>
+                <div class="result-item">
+                    <span class="label"><i class="fas fa-pen-fancy"></i> Sekretaris</span>
+                    <span class="winner-name">${sekretarisName}</span>
+                </div>
+                <div class="result-item">
+                    <span class="label"><i class="fas fa-coins"></i> Bendahara</span>
+                    <span class="winner-name">${bendaharaName}</span>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
+        // ========== RESET ==========
+        function resetVote() {
+            if (hasVoted) {
+                showToast('Tidak dapat reset. Suara sudah dikirim dan terkunci permanen.', 'warning');
+                return;
+            }
+
+            selectedVotes = { ketua: null, sekretaris: null, bendahara: null };
+            
+            document.querySelectorAll('.candidate-item').forEach(item => {
+                item.classList.remove('selected', 'disabled');
+            });
+            
+            updateSelectionUI('ketua');
+            updateSelectionUI('sekretaris');
+            updateSelectionUI('bendahara');
+            
+            updateSubmitButtonState();
+            updateStatusBadge();
+            
+            modal.classList.remove('active');
+            
+            showToast('Pilihan telah direset. Silakan voting ulang.', 'info');
+        }
+
+        // ========== TOAST ==========
+        let toastTimeout;
+        function showToast(message, type = 'info') {
+            clearTimeout(toastTimeout);
+            toastMessage.textContent = message;
+            toast.className = `toast ${type}`;
+            const icon = toast.querySelector('i');
+            if (type === 'success') icon.className = 'fas fa-check-circle';
+            else if (type === 'warning') icon.className = 'fas fa-exclamation-triangle';
+            else icon.className = 'fas fa-info-circle';
+            
+            toast.classList.add('show');
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // ========== LOAD STORAGE ==========
+        function loadFromStorage() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    const data = JSON.parse(stored);
+                    
+                    if (data.locked === true || (data.ketua && data.sekretaris && data.bendahara)) {
+                        hasVoted = true;
+                        selectedVotes.ketua = data.ketua || null;
+                        selectedVotes.sekretaris = data.sekretaris || null;
+                        selectedVotes.bendahara = data.bendahara || null;
+
+                        document.querySelectorAll('.candidate-item').forEach(item => {
+                            item.classList.add('disabled');
+                            const cat = item.dataset.category;
+                            const id = item.dataset.id;
+                            if (selectedVotes[cat] === id) {
+                                item.classList.add('selected');
+                            }
+                        });
+
+                        resetBtn.disabled = true;
+                        resetBtn.style.opacity = '0.35';
+                        resetBtn.style.cursor = 'not-allowed';
+
+                        lockedBanner.style.display = 'flex';
+                        renderHasilSection();
+
+                        updateSubmitButtonState();
+                        updateStatusBadge();
+                        
+                        showToast('Anda sudah melakukan voting. Pilihan terkunci.', 'info');
+                        return;
+                    }
+                }
+                
+                updateSubmitButtonState();
+                updateStatusBadge();
+            } catch (e) {
+                console.warn(e);
+                updateSubmitButtonState();
+                updateStatusBadge();
+            }
+        }
+
+        // ========== EVENTS ==========
+        submitBtn.addEventListener('click', submitVote);
+        resetBtn.addEventListener('click', resetVote);
+
+        // ========== INIT ==========
+        function init() {
+            renderCandidates();
+            selectedVotes = { ketua: null, sekretaris: null, bendahara: null };
+            hasVoted = false;
+            loadFromStorage();
+            updateSelectionUI('ketua');
+            updateSelectionUI('sekretaris');
+            updateSelectionUI('bendahara');
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>
